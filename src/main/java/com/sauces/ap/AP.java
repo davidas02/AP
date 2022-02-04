@@ -54,8 +54,7 @@ public class AP {
                     System.out.println("Operar con cuenta");
                     System.out.println("Introduce el codigo de cuenta con el que se va a operar: ");
                     codigo = teclado.nextLine();
-                    Cuenta c1,
-                     c2;
+                    Cuenta c1,c2;
                     float cantidad;
                     c1 = banco.getCuenta(codigo);
                     if (c1 != null) {

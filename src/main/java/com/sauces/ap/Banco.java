@@ -6,9 +6,9 @@
 package com.sauces.ap;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 /**
  *
@@ -17,14 +17,14 @@ import java.util.Set;
 public class Banco {
 
     private String nombre;
-    private Set<Cuenta> cuentas;
+    private Map<String,Cuenta> cuentas;
     /**
      *  Constructor de la clase banco
      * @param nombre String
      */
     public Banco(String nombre) {
         this.nombre = nombre;
-        this.cuentas=new TreeSet<>();
+        this.cuentas=new HashMap<>();
     }
     /**
      *  Este metodo devuelve el nombre del banco
@@ -38,7 +38,7 @@ public class Banco {
      * @return List<Cuenta> cuentas 
      */
     public List<Cuenta> getCuentas() {
-        return new ArrayList<>(cuentas);
+        return new ArrayList<>(cuentas.values());
     }
     /**
      *  Este metodo inicializa el nombre del banco al nombre seleccionado
@@ -55,7 +55,12 @@ public class Banco {
      * @return  new Cuenta(codigo,titular,saldo)
      */
     public boolean abrirCuenta(String codigo, String titular, float saldo){
-        return cuentas.add(new Cuenta(codigo, titular, saldo));
+        boolean salida=false;
+        if(!cuentas.containsKey(codigo)){
+            cuentas.put(codigo, new Cuenta(codigo, titular, saldo));
+            salida=true;
+        }
+        return salida;
     }
     /**
      *  Busca una cuenta y la elimina de la lista de cuentas
@@ -64,9 +69,8 @@ public class Banco {
      */
     public boolean cancelarCuenta(String codigo) {
         boolean borrado=false;
-        Cuenta c=getCuenta(codigo);
-        if(c!=null){
-            borrado=cuentas.remove(c);
+        if(cuentas.remove(codigo)!=null){
+            borrado=true;
         }
         return borrado;
     }
@@ -75,9 +79,8 @@ public class Banco {
      * @return acum float
      */
     public float getTotalDepositos() {
-        
         float acum = 0;
-        for(Cuenta c:cuentas){
+        for(Cuenta c:cuentas.values()){
             acum+=c.getSaldo();
         }
         return acum;
@@ -90,12 +93,7 @@ public class Banco {
      * @return Cuenta c
      */
     public Cuenta getCuenta(String codigo) {
-        for(Cuenta cu:cuentas){
-            if(cu.getCodigo().equals(codigo)){
-                return cu;
-            }
-        }
-        return null;
+        return cuentas.get(codigo);
     }
     /**
      *  Devuelve el nombre del banco
