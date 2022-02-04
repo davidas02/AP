@@ -90,14 +90,12 @@ public class Banco {
      * @return Cuenta c
      */
     public Cuenta getCuenta(String codigo) {
-        Cuenta c=null;
         for(Cuenta cu:cuentas){
             if(cu.getCodigo().equals(codigo)){
-                c=cu;
-                break;
+                return cu;
             }
         }
-        return c;
+        return null;
     }
     /**
      *  Devuelve el nombre del banco

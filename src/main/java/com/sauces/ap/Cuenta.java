@@ -15,7 +15,7 @@ import java.util.Objects;
  *
  * @author David Aparicio Sir
  */
-public class Cuenta {
+public class Cuenta implements Comparable<Cuenta>{
     private String codigo;
     private String titular;
     private float saldo;
@@ -202,6 +202,11 @@ public class Cuenta {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int compareTo(Cuenta c) {
+        return this.codigo.compareTo(c.codigo);
     }
 
    
