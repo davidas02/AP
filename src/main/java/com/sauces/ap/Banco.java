@@ -6,7 +6,7 @@
 package com.sauces.ap;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class Banco {
      */
     public Banco(String nombre) {
         this.nombre = nombre;
-        this.cuentas=new HashSet<>();
+        this.cuentas=new TreeSet<>();
     }
     /**
      *  Este metodo devuelve el nombre del banco
