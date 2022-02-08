@@ -12,19 +12,21 @@ import java.time.LocalDate;
  * @author daw1
  */
 public class Movimiento {
-     private LocalDate fecha;
-    private char tipo;
+
+    private LocalDate fecha;
+    private TipoMovimiento tipo;
     private float cantidad;
     private float saldo;
 
     /**
-     *Crea un nuevo movimiento
-     * @param fecha  fecha del movimiento
-     * @param tipo  tipo del movimeinto
+     * Crea un nuevo movimiento
+     *
+     * @param fecha fecha del movimiento
+     * @param tipo tipo del movimeinto
      * @param cantidad Cantidad del movimiento
      * @param saldo saldo de la cuenta del movimiento
      */
-    public Movimiento(LocalDate fecha, char tipo, float cantidad, float saldo) {
+    public Movimiento(LocalDate fecha, TipoMovimiento tipo, float cantidad, float saldo) {
         this.fecha = fecha;
         this.tipo = tipo;
         this.cantidad = cantidad;
@@ -32,7 +34,8 @@ public class Movimiento {
     }
 
     /**
-     *  Devuelve la fecha del movimiento
+     * Devuelve la fecha del movimiento
+     *
      * @return fecha
      */
     public LocalDate getFecha() {
@@ -40,18 +43,18 @@ public class Movimiento {
     }
 
     /**
-     *  Devuelve el tipo del movimiento 
-     * I=Ingreso
-     * R=Retirada de efectivo (reintegrar)
-     * T=Transferencia
+     * Devuelve el tipo del movimiento I=Ingreso R=Retirada de efectivo
+     * (reintegrar) T=Transferencia
+     *
      * @return tipo tipo del movimiento
      */
-    public char getTipo() {
+    public TipoMovimiento getTipo() {
         return tipo;
     }
 
     /**
-     *  Devuelve la cantidad del movimiento
+     * Devuelve la cantidad del movimiento
+     *
      * @return cantidad Cantidad a sumar o restar a la cuenta del movimiento
      */
     public float getCantidad() {
@@ -59,16 +62,16 @@ public class Movimiento {
     }
 
     /**
-     *  Devuelve el Saldo de la cuenta
+     * Devuelve el Saldo de la cuenta
+     *
      * @return saldo Saldo de la cuenta despues del movimiento
      */
     public float getSaldo() {
         return saldo;
     }
 
-   
     public String toString() {
         return fecha + "," + tipo + "," + cantidad + "," + saldo;
     }
-    
+
 }
