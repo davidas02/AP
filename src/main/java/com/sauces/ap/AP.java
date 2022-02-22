@@ -25,7 +25,7 @@ public class AP {
         String codigo, titular;
         float saldo;
         List<Cuenta> listado;
-        do {
+       do {
             System.out.println("1: -Abrir cuenta");
             System.out.println("2: -Operar con cuenta");
             System.out.println("3: -Cancelar cuenta");
@@ -79,12 +79,12 @@ public class AP {
                                     System.out.println("Retirar Dinero");
                                     System.out.println("Introduzca cantidad a retirar: ");
                                     cantidad = teclado.nextFloat();
-                                    if (cantidad < c1.getSaldo()) {
+                                    try{
                                         c1.reintegrar(cantidad);
-                                        System.out.println("Su saldo es de: " + c1.getSaldo() + "€");
-                                    } else {
+                                    }catch(SaldoInsuficienteException sie){
                                         System.out.println("No se ha podido retirar la cantidad deseada");
                                     }
+                                    System.out.println("Su saldo es de: " + c1.getSaldo() + "€");
                                     break;
                                 case 3:
                                     System.out.println("Consultar saldo");

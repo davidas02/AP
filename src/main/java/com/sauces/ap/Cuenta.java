@@ -26,12 +26,13 @@ public class Cuenta implements Comparable<Cuenta>{
      * @param titular propietario titular de la cuenta
      * @param saldo Saldo inicial de la cuenta
      */
-    public Cuenta(String codigo, String titular, float saldo) {
+    public Cuenta(String codigo, String titular, float saldo) throws SaldoException {
         this.codigo = codigo;
         this.titular = titular;
-        if(saldo>=0){
-            this.saldo = saldo;
+        if(saldo<0){
+            throw new SaldoException("Saldo menor a 0");
         }
+        this.saldo = saldo;
         movimientos=new ArrayList<>();
         movimientos.add(new Movimiento(LocalDate.now(), TipoMovimiento.INGRESO, saldo, saldo));
     }
@@ -74,10 +75,11 @@ public class Cuenta implements Comparable<Cuenta>{
      * Establece el saldo de la cuenta
      * @param saldo float
      */
-    public void setSaldo(float saldo) {
-        if(saldo>=0){
-            this.saldo = saldo;
+    public void setSaldo(float saldo) throws SaldoException {
+        if(saldo<0){
+            throw new SaldoException("El saldo a introducir es menor a 0");
         }
+        this.saldo = saldo;
     }
     /**
      *  Metodo que devuelve una lista de metodos
@@ -131,10 +133,11 @@ public class Cuenta implements Comparable<Cuenta>{
      * @param cantidad cantidad que se desea reintegrar en la cuenta
      */
     public void reintegrar(float cantidad){
-    if(cantidad>0&&cantidad<=saldo){
-            saldo-=cantidad;
-            movimientos.add(new Movimiento(LocalDate.now(),TipoMovimiento.REINTEGRO,-cantidad,saldo));
+        if(cantidad>saldo){
+           throw new SaldoInsuficienteException("Saldo Insuficiente");
         }
+    saldo-=cantidad;
+    movimientos.add(new Movimiento(LocalDate.now(),TipoMovimiento.REINTEGRO,-cantidad,saldo));
     }
 
     /**
