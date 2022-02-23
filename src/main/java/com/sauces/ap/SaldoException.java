@@ -11,8 +11,12 @@ package com.sauces.ap;
  */
 public class SaldoException extends Exception {
 
+    /**
+     *
+     * @param message Mensaje que devuelve la excepcion
+     */
     public SaldoException(String message) {
         super(message);
     }
-    
+
 }

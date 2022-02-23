@@ -11,6 +11,10 @@ package com.sauces.ap;
  */
 public class SaldoInsuficienteException extends RuntimeException {
 
+    /**
+     *
+     * @param message
+     */
     public SaldoInsuficienteException(String message) {
         super(message);
     }

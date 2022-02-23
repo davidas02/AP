@@ -1,1 +1,1 @@
-cmd.exe /X /C ""D:\Apps\Eclipse Adoptium\jdk-11.0.13.8-hotspot\bin\javadoc.exe" @options @packages @argfile"
+cmd.exe /X /C ""C:\Program Files\AdoptOpenJDK\jdk-11.0.4.11-hotspot\bin\javadoc.exe" @options @packages @argfile"
