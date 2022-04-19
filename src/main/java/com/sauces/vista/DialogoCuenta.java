@@ -5,6 +5,8 @@
  */
 package com.sauces.vista;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author daw1
@@ -19,6 +21,23 @@ public class DialogoCuenta extends javax.swing.JDialog {
     public DialogoCuenta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    //public int mostrar(){}
+    public int mostrar(){
+        opcion=CANCELAR;
+        setVisible(true);
+        return opcion;
+    }
+    public String getCodigo() {
+        return tfCodigo.toString();
+    }
+
+    public float getSaldo() {
+        return (float)tfSaldo.getValue();
+    }
+
+    public String getTitular() {
+        return tfTitular.toString();
     }
     
     /**
@@ -37,7 +56,7 @@ public class DialogoCuenta extends javax.swing.JDialog {
         lSaldo = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         tfTitular = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        tfSaldo = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Crear Cuenta");
@@ -62,6 +81,8 @@ public class DialogoCuenta extends javax.swing.JDialog {
 
         lSaldo.setText("SALDO");
 
+        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,8 +102,8 @@ public class DialogoCuenta extends javax.swing.JDialog {
                             .addComponent(lSaldo))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lcodigo)
                         .addGap(18, 18, 18)
@@ -103,7 +124,7 @@ public class DialogoCuenta extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lSaldo)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancelar)
@@ -115,11 +136,13 @@ public class DialogoCuenta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        // TODO add your handling code here:
+        opcion=ACEPTAR;
+        setVisible(false);
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        // TODO add your handling code here:
+       opcion=CANCELAR;
+       setVisible(false);
     }//GEN-LAST:event_bCancelarActionPerformed
 
     /**
@@ -169,11 +192,11 @@ public class DialogoCuenta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAceptar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lSaldo;
     private javax.swing.JLabel lTitular;
     private javax.swing.JLabel lcodigo;
     private javax.swing.JTextField tfCodigo;
+    private javax.swing.JFormattedTextField tfSaldo;
     private javax.swing.JTextField tfTitular;
     // End of variables declaration//GEN-END:variables
 }

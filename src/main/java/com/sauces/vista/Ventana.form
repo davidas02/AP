@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="menu">
       <SubComponents>
@@ -35,6 +35,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Banco"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuBancoActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miAbrirCuenta">
               <Properties>
@@ -128,7 +131,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="tfCodigo" min="-2" pref="150" max="-2" attributes="0"/>
                       <Component id="tfTitular" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="tfSaldo" alignment="0" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="tfSaldo" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -147,12 +150,12 @@
                       <Component id="lTitular" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tfTitular" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfSaldo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lSaldo" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfSaldo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="43" max="32767" attributes="0"/>
+                  <EmptySpace pref="46" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -177,7 +180,15 @@
         </Component>
         <Component class="javax.swing.JTextField" name="tfTitular">
         </Component>
-        <Component class="javax.swing.JTextField" name="tfSaldo">
+        <Component class="javax.swing.JFormattedTextField" name="tfSaldo">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format subtype="0" type="0"/>
+            </Property>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Texto"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -212,12 +223,8 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaCuentas">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="4">
-                    <Column editable="false" title="C&#xd3;DIGO" type="java.lang.String"/>
-                    <Column editable="false" title="TITULAR" type="java.lang.String"/>
-                    <Column editable="false" title="SALDO" type="java.lang.Float"/>
-                  </Table>
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="tablaCuentas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;public void valueChanged(ListSelectionEvent lse){&#xa;    int fila=tablaCuentas.getSelectedRow();&#xa;    if(fila&gt;=0){&#xa;        tfCodigo.setText((String)tablaCuentas.getValueAt(fila,0));&#xa;        tfTitular.setText((String)tablaCuentas.getValueAt(fila, 1));&#xa;        tfSaldo.setText((String)tablaCuentas.getValueAt(fila,2));&#xa;    }&#xa;}&#xa;});">
+                  <Connection code="cuentaTM" type="code"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
@@ -242,6 +249,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="cuentaTM=new CuentaTableModel();"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

@@ -6,6 +6,13 @@
 package com.sauces.vista;
 
 import com.sauces.controlador.Controlador;
+import com.sauces.modelo.Cuenta;
+import java.util.List;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -35,7 +42,7 @@ public class Ventana extends javax.swing.JFrame {
         lSaldo = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         tfTitular = new javax.swing.JTextField();
-        tfSaldo = new javax.swing.JTextField();
+        tfSaldo = new javax.swing.JFormattedTextField();
         pListado = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaCuentas = new javax.swing.JTable();
@@ -61,6 +68,9 @@ public class Ventana extends javax.swing.JFrame {
 
         lSaldo.setText("SALDO");
 
+        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tfSaldo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
         javax.swing.GroupLayout pCuentaLayout = new javax.swing.GroupLayout(pCuenta);
         pCuenta.setLayout(pCuentaLayout);
         pCuentaLayout.setHorizontalGroup(
@@ -74,7 +84,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pCuentaLayout.setVerticalGroup(
@@ -88,39 +98,25 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lTitular)
                     .addComponent(tfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lSaldo)
                     .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pListado.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de cuentas"));
 
-        tablaCuentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "CÓDIGO", "TITULAR", "SALDO"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        cuentaTM=new CuentaTableModel();
+        tablaCuentas.setModel(cuentaTM);
+        tablaCuentas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent lse){
+                int fila=tablaCuentas.getSelectedRow();
+                if(fila>=0){
+                    tfCodigo.setText((String)tablaCuentas.getValueAt(fila,0));
+                    tfTitular.setText((String)tablaCuentas.getValueAt(fila, 1));
+                    tfSaldo.setText((String)tablaCuentas.getValueAt(fila,2));
+                }
             }
         });
         jScrollPane3.setViewportView(tablaCuentas);
@@ -156,6 +152,11 @@ public class Ventana extends javax.swing.JFrame {
         menu.add(menuArchivos);
 
         menuBanco.setText("Banco");
+        menuBanco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuBancoActionPerformed(evt);
+            }
+        });
 
         miAbrirCuenta.setText("Abrir cuenta");
         miAbrirCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -200,12 +201,24 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_miSalirActionPerformed
 
     private void miAbrirCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirCuentaActionPerformed
-        // TODO add your handling code here:
+
+        if(dialogoCuenta.mostrar()==DialogoCuenta.ACEPTAR){
+            this.tfCodigo.setText(this.dialogoCuenta.getCodigo());
+            this.tfTitular.setText(this.dialogoCuenta.getTitular());
+            this.tfSaldo.setValue(this.dialogoCuenta.getSaldo());
+            controlador.abrirCuenta();
+        }
+        actualizarTabla();
+        mostrarMensaje("Cuenta Abierta");
     }//GEN-LAST:event_miAbrirCuentaActionPerformed
+
+    private void menuBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBancoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuBancoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -241,9 +254,47 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
     }
-        private Controlador controlador;
+       
+        public void mostrar(){
+            setVisible(true);
+        }
+
+    public void setControlador(Controlador controlador) {
+        this.controlador = controlador;
+    }
+
+    public String getCodigo() {
+        return tfCodigo.toString();
+    }
+    public String getTitular() {
+        return tfTitular.toString();
+    }
+    public float getSaldo() {
+        return (float)tfSaldo.getValue();
+    }
+
+    public String getOperacion() {
+        String operacion=(String)JOptionPane.showInputDialog(this, "Operación a realizar", "Operar con cuenta",JOptionPane.QUESTION_MESSAGE,null, new String[]{"INGRESAR","REINTEGRAR"},"INGRESAR");
+        return operacion;
+    }
+    public float getCantidad(){
+     float cantidad=Float.parseFloat(JOptionPane.showInternalInputDialog(this, "Introduzca cantidad"));
+    return cantidad;
+    }
+    public void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(rootPane, mensaje);
+    }
+    public void mostrarCuentas(List<Cuenta> listado){
+        cuentaTM.getCuentas();
+    }
+    public void actualizarTabla(){
+        cuentaTM.getCuentas();
+    }
+
+     private Controlador controlador;
         private CuentaTableModel cuentaTM;
-        private DialogoCuenta dialogoCuenta;
+        private DialogoCuenta dialogoCuenta=new DialogoCuenta(this,true);
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -263,7 +314,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel pListado;
     private javax.swing.JTable tablaCuentas;
     private javax.swing.JTextField tfCodigo;
-    private javax.swing.JTextField tfSaldo;
+    private javax.swing.JFormattedTextField tfSaldo;
     private javax.swing.JTextField tfTitular;
     // End of variables declaration//GEN-END:variables
 }
