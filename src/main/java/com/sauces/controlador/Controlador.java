@@ -6,7 +6,9 @@
 package com.sauces.controlador;
 
 import com.sauces.modelo.Banco;
+import com.sauces.modelo.Cuenta;
 import com.sauces.vista.Ventana;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +34,16 @@ public class Controlador {
         }
     }
     public void operarConCuenta(){
+        Cuenta c1= modelo.getCuenta((String)JOptionPane.showInputDialog("Introduce cuenta con la que trabajar"));
     
+        if(vista.getOperacion().equals("INTEGRAR")){
+            float cantidad=vista.getCantidad();
+            c1.ingresar(cantidad);
+                }else{
+            float cantidad=vista.getCantidad();
+            c1.reintegrar(cantidad);
+        }
+        vista.mostrarCuentas(modelo.getCuentas());
     }
     public void cancelarCuenta(){
     modelo.cancelarCuenta(vista.getCodigo());

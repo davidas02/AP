@@ -245,10 +245,14 @@ public class Ventana extends javax.swing.JFrame {
 
     private void miOperarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miOperarCuentaActionPerformed
         // TODO add your handling code here:
+        controlador.operarConCuenta();
+        actualizarTabla();
     }//GEN-LAST:event_miOperarCuentaActionPerformed
 
     private void miCancelarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCancelarCuentaActionPerformed
         // TODO add your handling code here:
+        controlador.cancelarCuenta();
+        actualizarTabla();
     }//GEN-LAST:event_miCancelarCuentaActionPerformed
 
     /**
@@ -317,8 +321,7 @@ public class Ventana extends javax.swing.JFrame {
         return operacion;
     }
     public float getCantidad(){
-     float cantidad=Float.parseFloat(JOptionPane.showInputDialog(this, "Introduzca cantidad"));
-    return cantidad;
+        return Float.parseFloat(JOptionPane.showInputDialog(this, "Introduzca cantidad"));
     }
     public void mostrarMensaje(String mensaje){
         JOptionPane.showMessageDialog(this, mensaje);
