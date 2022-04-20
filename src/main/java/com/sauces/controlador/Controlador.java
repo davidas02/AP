@@ -21,16 +21,24 @@ public class Controlador {
         this.modelo = modelo;
     }
     public void abrirCuenta(){
-    
+        String codigo=vista.getCodigo();
+        String titular=vista.getTitular();
+        Float saldo=vista.getSaldo();
+        if(modelo.abrirCuenta(codigo, titular, saldo)){
+            vista.mostrarMensaje("Cuenta Abierta");
+            vista.mostrarCuentas(modelo.getCuentas());
+        }else{
+            vista.mostrarMensaje("No se ha podido abrir la cuenta");
+        }
     }
     public void operarConCuenta(){
     
     }
     public void cancelarCuenta(){
-    
+    modelo.cancelarCuenta(vista.getCodigo());
     }
     public void listarCuentas(){
-    
+        
     }
     public void guardarCuentas(){
     
@@ -39,6 +47,6 @@ public class Controlador {
     
     }
     public void iniciar(){
-    
+        vista.mostrar();
     }
 }

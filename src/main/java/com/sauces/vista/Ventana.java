@@ -8,9 +8,7 @@ package com.sauces.vista;
 import com.sauces.controlador.Controlador;
 import com.sauces.modelo.Cuenta;
 import java.util.List;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -68,8 +66,18 @@ public class Ventana extends javax.swing.JFrame {
 
         lSaldo.setText("SALDO");
 
+        tfCodigo.setEditable(false);
+
+        tfTitular.setEditable(false);
+
+        tfSaldo.setEditable(false);
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
         tfSaldo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        tfSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSaldoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCuentaLayout = new javax.swing.GroupLayout(pCuenta);
         pCuenta.setLayout(pCuentaLayout);
@@ -167,9 +175,19 @@ public class Ventana extends javax.swing.JFrame {
         menuBanco.add(miAbrirCuenta);
 
         miOperarCuenta.setText("Operar con cuenta");
+        miOperarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miOperarCuentaActionPerformed(evt);
+            }
+        });
         menuBanco.add(miOperarCuenta);
 
         miCancelarCuenta.setText("Cancelar cuenta");
+        miCancelarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCancelarCuentaActionPerformed(evt);
+            }
+        });
         menuBanco.add(miCancelarCuenta);
 
         menu.add(menuBanco);
@@ -201,24 +219,37 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
-        
+         System.exit(0);
     }//GEN-LAST:event_miSalirActionPerformed
 
     private void miAbrirCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirCuentaActionPerformed
 
         if(dialogoCuenta.mostrar()==DialogoCuenta.ACEPTAR){
-            this.tfCodigo.setText(this.dialogoCuenta.getCodigo());
-            this.tfTitular.setText(this.dialogoCuenta.getTitular());
-            this.tfSaldo.setValue(this.dialogoCuenta.getSaldo());
+            mostrarCodigo(this.dialogoCuenta.getCodigo());
+            mostrarTitular(this.dialogoCuenta.getTitular());
+            mostrarSaldo(this.dialogoCuenta.getSaldo());
             controlador.abrirCuenta();
         }
-        actualizarTabla();
-        mostrarMensaje("Cuenta Abierta");
+        else{
+            mostrarMensaje("La cuenta no se ha podido abrir");
+        }
     }//GEN-LAST:event_miAbrirCuentaActionPerformed
 
     private void menuBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuBancoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuBancoActionPerformed
+
+    private void tfSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSaldoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSaldoActionPerformed
+
+    private void miOperarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miOperarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miOperarCuentaActionPerformed
+
+    private void miCancelarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCancelarCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miCancelarCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,28 +295,36 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     public String getCodigo() {
-        return tfCodigo.toString();
+        return tfCodigo.getText();
     }
     public String getTitular() {
-        return tfTitular.toString();
+        return tfTitular.getText();
     }
     public float getSaldo() {
-        return (float)tfSaldo.getValue();
+        return Float.parseFloat(this.tfSaldo.getText().replace(',','.'));
     }
-
+    public void mostrarCodigo(String codigo){
+        this.tfCodigo.setText(codigo);
+    }
+    public void mostrarTitular(String titular){
+        this.tfTitular.setText(titular);
+    }
+    public void mostrarSaldo(float saldo){
+        this.tfSaldo.setValue(saldo);
+    }
     public String getOperacion() {
         String operacion=(String)JOptionPane.showInputDialog(this, "Operación a realizar", "Operar con cuenta",JOptionPane.QUESTION_MESSAGE,null, new String[]{"INGRESAR","REINTEGRAR"},"INGRESAR");
         return operacion;
     }
     public float getCantidad(){
-     float cantidad=Float.parseFloat(JOptionPane.showInternalInputDialog(this, "Introduzca cantidad"));
+     float cantidad=Float.parseFloat(JOptionPane.showInputDialog(this, "Introduzca cantidad"));
     return cantidad;
     }
     public void mostrarMensaje(String mensaje){
-        JOptionPane.showMessageDialog(rootPane, mensaje);
+        JOptionPane.showMessageDialog(this, mensaje);
     }
     public void mostrarCuentas(List<Cuenta> listado){
-        cuentaTM.getCuentas();
+        cuentaTM.setCuentas(listado);
     }
     public void actualizarTabla(){
         cuentaTM.getCuentas();

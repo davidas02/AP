@@ -29,17 +29,25 @@ public class DialogoCuenta extends javax.swing.JDialog {
         return opcion;
     }
     public String getCodigo() {
-        return tfCodigo.toString();
+        return this.tfCodigo.getText();
     }
 
     public float getSaldo() {
-        return (float)tfSaldo.getValue();
+        return Float.parseFloat(this.tfSaldo.getText().replace(',','.'));
     }
 
     public String getTitular() {
-        return tfTitular.toString();
+        return this.tfTitular.getText();
     }
-    
+    public void mostrarCodigo(String codigo){
+        this.tfCodigo.setText(codigo);
+    }
+    public void mostrarTitular(String titular){
+        this.tfTitular.setText(titular);
+    }
+    public void mostrarSaldo(float saldo){
+        this.tfSaldo.setValue(saldo);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +89,7 @@ public class DialogoCuenta extends javax.swing.JDialog {
 
         lSaldo.setText("SALDO");
 
-        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
