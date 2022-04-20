@@ -71,7 +71,7 @@ public class Ventana extends javax.swing.JFrame {
         tfTitular.setEditable(false);
 
         tfSaldo.setEditable(false);
-        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         tfSaldo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         tfSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
