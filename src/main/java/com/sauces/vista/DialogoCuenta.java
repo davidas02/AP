@@ -48,6 +48,11 @@ public class DialogoCuenta extends javax.swing.JDialog {
     public void mostrarSaldo(float saldo){
         this.tfSaldo.setValue(saldo);
     }
+    public void limpiarCampos(){
+        this.tfCodigo.setText("");
+        this.tfTitular.setText("");
+        this.tfSaldo.setValue(0.0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +95,7 @@ public class DialogoCuenta extends javax.swing.JDialog {
         lSaldo.setText("SALDO");
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        tfSaldo.setText("0,0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,8 +150,10 @@ public class DialogoCuenta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
-        opcion=ACEPTAR;
-        setVisible(false);
+        if(!getCodigo().isBlank()&&!getTitular().isBlank()&&getSaldo()!=0){
+            opcion=ACEPTAR;
+            setVisible(false);
+        }
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed

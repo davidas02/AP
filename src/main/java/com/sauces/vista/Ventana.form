@@ -239,7 +239,7 @@
           <SubComponents>
             <Component class="javax.swing.JTable" name="tablaCuentas">
               <Properties>
-                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="tablaCuentas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;public void valueChanged(ListSelectionEvent lse){&#xa;    int fila=tablaCuentas.getSelectedRow();&#xa;    if(fila&gt;=0){&#xa;        tfCodigo.setText((String)tablaCuentas.getValueAt(fila,0));&#xa;        tfTitular.setText((String)tablaCuentas.getValueAt(fila, 1));&#xa;        tfSaldo.setText((String)tablaCuentas.getValueAt(fila,2));&#xa;    }&#xa;}&#xa;});">
+                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="tablaCuentas.getSelectionModel().addListSelectionListener(new ListSelectionListener(){&#xa;public void valueChanged(ListSelectionEvent lse){&#xa;    int fila=tablaCuentas.getSelectedRow();&#xa;    if(fila&gt;=0){&#xa;        mostrarCodigo((String)tablaCuentas.getValueAt(fila,0));&#xa;        mostrarTitular((String)tablaCuentas.getValueAt(fila, 1));&#xa;        mostrarSaldo((float)tablaCuentas.getValueAt(fila,2));&#xa;    }&#xa;}&#xa;});">
                   <Connection code="cuentaTM" type="code"/>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

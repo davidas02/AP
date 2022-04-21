@@ -119,7 +119,7 @@ public class Cuenta implements Comparable<Cuenta>{
      * Metodo que permite ingresar dinero en la cuenta
      * @param cantidad cantidad que se desea ingresar en la cuenta
      */
-    public void ingresar(float cantidad){
+    public void ingresar(float cantidad) {
         if(cantidad>0){
             saldo+=cantidad;
             movimientos.add(new Movimiento(LocalDate.now(),'I',cantidad,saldo));
@@ -130,11 +130,12 @@ public class Cuenta implements Comparable<Cuenta>{
      *  Metodo que permite retirar dinero de la cuenta
      * @param cantidad cantidad que se desea reintegrar en la cuenta
      */
-    public void reintegrar(float cantidad){
-    if(cantidad>0&&cantidad<=saldo){
-            saldo-=cantidad;
-            movimientos.add(new Movimiento(LocalDate.now(),'R',-cantidad,saldo));
+    public void reintegrar(float cantidad) throws SaldoException{
+        if(cantidad<0||cantidad>=saldo){
+            throw new SaldoException("No se puede sacar una cantidad en negativo ni una cantidad mayor al saldo disponible");
         }
+        saldo-=cantidad;
+        movimientos.add(new Movimiento(LocalDate.now(),'R',-cantidad,saldo));
     }
 
     /**

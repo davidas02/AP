@@ -121,9 +121,9 @@ public class Ventana extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent lse){
                 int fila=tablaCuentas.getSelectedRow();
                 if(fila>=0){
-                    tfCodigo.setText((String)tablaCuentas.getValueAt(fila,0));
-                    tfTitular.setText((String)tablaCuentas.getValueAt(fila, 1));
-                    tfSaldo.setText((String)tablaCuentas.getValueAt(fila,2));
+                    mostrarCodigo((String)tablaCuentas.getValueAt(fila,0));
+                    mostrarTitular((String)tablaCuentas.getValueAt(fila, 1));
+                    mostrarSaldo((float)tablaCuentas.getValueAt(fila,2));
                 }
             }
         });
@@ -229,6 +229,7 @@ public class Ventana extends javax.swing.JFrame {
             mostrarTitular(this.dialogoCuenta.getTitular());
             mostrarSaldo(this.dialogoCuenta.getSaldo());
             controlador.abrirCuenta();
+            dialogoCuenta.limpiarCampos();
         }
         else{
             mostrarMensaje("La cuenta no se ha podido abrir");
@@ -330,9 +331,13 @@ public class Ventana extends javax.swing.JFrame {
         cuentaTM.setCuentas(listado);
     }
     public void actualizarTabla(){
-        cuentaTM.getCuentas();
+        tablaCuentas.revalidate();
     }
-
+    public void limpiarCampos(){
+        this.tfCodigo.setText("");
+        this.tfTitular.setText("");
+        this.tfSaldo.setValue(0.0);
+    }
      private Controlador controlador;
         private CuentaTableModel cuentaTM;
         private DialogoCuenta dialogoCuenta=new DialogoCuenta(this,true);

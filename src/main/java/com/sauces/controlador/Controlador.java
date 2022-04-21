@@ -7,7 +7,11 @@ package com.sauces.controlador;
 
 import com.sauces.modelo.Banco;
 import com.sauces.modelo.Cuenta;
+import com.sauces.modelo.DaoException;
+import com.sauces.modelo.SaldoException;
 import com.sauces.vista.Ventana;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -35,27 +39,66 @@ public class Controlador {
     }
     public void operarConCuenta(){
         Cuenta c1= modelo.getCuenta((String)JOptionPane.showInputDialog("Introduce cuenta con la que trabajar"));
-    
-        if(vista.getOperacion().equals("INTEGRAR")){
-            float cantidad=vista.getCantidad();
-            c1.ingresar(cantidad);
-                }else{
-            float cantidad=vista.getCantidad();
-            c1.reintegrar(cantidad);
+        float cantidad;
+        String operacion;
+        if(c1!=null){
+            operacion=vista.getOperacion();
+            if(operacion!=null){
+            switch(operacion){
+                case "INGRESAR":
+                    cantidad=vista.getCantidad();
+                    try{
+                    c1.ingresar(cantidad);
+                    vista.mostrarSaldo(c1.getSaldo());
+                    }catch(IllegalArgumentException ex){
+                        vista.mostrarMensaje(ex.getMessage());
+                    }
+                  break;  
+                case "REINTEGRAR":
+                    cantidad=vista.getCantidad();
+                    try {
+                        c1.reintegrar(cantidad);
+                        vista.mostrarSaldo(c1.getSaldo());
+                    } catch (SaldoException ex) {
+                        vista.mostrarMensaje(ex.getMessage());
+                    }catch(IllegalArgumentException ex){
+                        vista.mostrarMensaje(ex.getMessage());
+                    }
+            }
+            }
+            vista.mostrarCuentas(modelo.getCuentas());
+        }else{
+            vista.mostrarMensaje("La cuenta especificada no existe");
         }
-        vista.mostrarCuentas(modelo.getCuentas());
     }
     public void cancelarCuenta(){
-    modelo.cancelarCuenta(vista.getCodigo());
-    }
-    public void listarCuentas(){
+       String codigo=(String)JOptionPane.showInputDialog("Introduce cuenta con la que trabajar");
+       
+        if(modelo.cancelarCuenta(codigo)){
+            vista.mostrarCuentas(modelo.getCuentas());
+            vista.limpiarCampos();
+            vista.mostrarMensaje("Cuenta cancelada");
+        }else{
+            vista.mostrarMensaje("La cuenta seleccionada no se ha podido cancelar");
+        }
         
     }
+    public void listarCuentas(){
+        vista.mostrarCuentas(modelo.getCuentas());
+    }
     public void guardarCuentas(){
-    
+        try {
+            modelo.guardarCuentas();
+        } catch (DaoException ex) {
+            vista.mostrarMensaje("Extension incorrecta");
+        }
     }
     public void cargarCuentas(){
-    
+        try {
+            modelo.cargarCuentas();
+        } catch (DaoException ex) {
+            vista.mostrarMensaje("Extension incorrecta");
+        }
     }
     public void iniciar(){
         vista.mostrar();

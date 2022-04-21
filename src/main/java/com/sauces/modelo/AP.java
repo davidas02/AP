@@ -7,6 +7,8 @@ package com.sauces.modelo;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -80,7 +82,11 @@ public class AP {
                                     System.out.println("Introduzca cantidad a retirar: ");
                                     cantidad = teclado.nextFloat();
                                     if (cantidad < c1.getSaldo()) {
-                                        c1.reintegrar(cantidad);
+                                try {
+                                    c1.reintegrar(cantidad);
+                                } catch (SaldoException ex) {
+                                    Logger.getLogger(AP.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                         System.out.println("Su saldo es de: " + c1.getSaldo() + "€");
                                     } else {
                                         System.out.println("No se ha podido retirar la cantidad deseada");

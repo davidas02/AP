@@ -18,6 +18,7 @@ public class Banco {
 
     private String nombre;
     private Map<String,Cuenta> cuentas;
+    CuentaDao cuentaDao;
     /**
      *  Constructor de la clase banco
      * @param nombre String
@@ -47,6 +48,15 @@ public class Banco {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public CuentaDao getCuentaDao() {
+        return cuentaDao;
+    }
+
+    public void setCuentaDao(CuentaDao cuentaDao) {
+        this.cuentaDao = cuentaDao;
+    }
+    
     /**
      *  Crea una nueva cuenta y la guarda en la lista de cuentas
      * @param codigo String
@@ -102,5 +112,31 @@ public class Banco {
     public String toString() {
         return nombre;
     }
-    
+    public int guardarCuentas() throws DaoException {
+        int n = 0;
+        if (cuentaDao == null) {
+            throw new DaoException("No se ha podido encontrar la extension del fichero");
+        }
+        n = cuentaDao.insertar(new ArrayList<>(cuentas.values()));
+        return n;
+    }
+
+    public int cargarCuentas() throws DaoException {
+        if (cuentaDao == null) {
+            throw new DaoException("No se ha pudido encontrar la extension del fichero");
+        }
+        int n = 0;
+        List<Cuenta> listado = cuentaDao.listar();
+        String codigo,titular;
+        float saldo;
+        for (Cuenta c : listado) {
+            codigo=c.getCodigo();
+            titular=c.getTitular();
+            saldo=c.getSaldo();
+            if (abrirCuenta(codigo, titular, saldo)) {
+                n++;
+            }
+        }
+        return n;
+    }
 }
