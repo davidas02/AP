@@ -95,7 +95,6 @@ public class DialogoCuenta extends javax.swing.JDialog {
         lSaldo.setText("SALDO");
 
         tfSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        tfSaldo.setText("0,0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

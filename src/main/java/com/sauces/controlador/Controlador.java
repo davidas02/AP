@@ -7,6 +7,7 @@ package com.sauces.controlador;
 
 import com.sauces.modelo.Banco;
 import com.sauces.modelo.Cuenta;
+import com.sauces.modelo.CuentaDaoCsv;
 import com.sauces.modelo.DaoException;
 import com.sauces.modelo.SaldoException;
 import com.sauces.vista.Ventana;
@@ -87,18 +88,26 @@ public class Controlador {
         vista.mostrarCuentas(modelo.getCuentas());
     }
     public void guardarCuentas(){
+        String archivo= vista.getArchivo();
         try {
-            modelo.guardarCuentas();
+            modelo.setCuentaDao(new CuentaDaoCsv(archivo));
+           int i= modelo.guardarCuentas();
+            vista.mostrarMensaje("Cuentas guardadas");
         } catch (DaoException ex) {
-            vista.mostrarMensaje("Extension incorrecta");
+            vista.mostrarMensaje(ex.getMessage());
         }
+        listarCuentas();
     }
     public void cargarCuentas(){
+       String archivo= vista.getArchivo();
         try {
+            modelo.setCuentaDao(new CuentaDaoCsv(archivo));
             modelo.cargarCuentas();
+            vista.mostrarMensaje("Cuentas cargadas");
         } catch (DaoException ex) {
-            vista.mostrarMensaje("Extension incorrecta");
+            vista.mostrarMensaje(ex.getMessage());
         }
+        listarCuentas();
     }
     public void iniciar(){
         vista.mostrar();

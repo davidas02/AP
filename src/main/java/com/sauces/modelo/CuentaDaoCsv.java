@@ -56,7 +56,7 @@ public class CuentaDaoCsv implements CuentaDao {
         } catch (IOException me) {
             throw new DaoException(me.getMessage());
         } catch (Exception ex) {
-            throw new DaoException("Error de formato");
+            throw new DaoException(ex.getMessage());
         }
         return listado;
     }

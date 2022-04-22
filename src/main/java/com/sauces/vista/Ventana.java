@@ -8,6 +8,7 @@ package com.sauces.vista;
 import com.sauces.controlador.Controlador;
 import com.sauces.modelo.Cuenta;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -34,6 +35,7 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        selectorFicheros = new javax.swing.JFileChooser();
         pCuenta = new javax.swing.JPanel();
         lCodigo = new javax.swing.JLabel();
         lTitular = new javax.swing.JLabel();
@@ -54,6 +56,8 @@ public class Ventana extends javax.swing.JFrame {
         miAbrirCuenta = new javax.swing.JMenuItem();
         miOperarCuenta = new javax.swing.JMenuItem();
         miCancelarCuenta = new javax.swing.JMenuItem();
+
+        selectorFicheros.setCurrentDirectory(new java.io.File("."));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Banco Sauces");
@@ -91,9 +95,10 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfTitular, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfSaldo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfTitular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                .addGap(0, 510, Short.MAX_VALUE))
         );
         pCuentaLayout.setVerticalGroup(
             pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,19 +138,34 @@ public class Ventana extends javax.swing.JFrame {
         pListado.setLayout(pListadoLayout);
         pListadoLayout.setHorizontalGroup(
             pListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
         pListadoLayout.setVerticalGroup(
             pListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
         );
 
         menuArchivos.setText("Archivo");
+        menuArchivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuArchivosActionPerformed(evt);
+            }
+        });
 
         miAbrirArchivo.setText("Abrir...");
+        miAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAbrirArchivoActionPerformed(evt);
+            }
+        });
         menuArchivos.add(miAbrirArchivo);
 
         miGuardarArchivo.setText("Guardar...");
+        miGuardarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miGuardarArchivoActionPerformed(evt);
+            }
+        });
         menuArchivos.add(miGuardarArchivo);
         menuArchivos.add(jSeparator1);
 
@@ -211,8 +231,8 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(pCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -255,6 +275,23 @@ public class Ventana extends javax.swing.JFrame {
         controlador.cancelarCuenta();
         actualizarTabla();
     }//GEN-LAST:event_miCancelarCuentaActionPerformed
+
+    private void menuArchivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuArchivosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuArchivosActionPerformed
+
+    private void miGuardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miGuardarArchivoActionPerformed
+       if(selectorFicheros.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+           controlador.guardarCuentas();
+       }
+    }//GEN-LAST:event_miGuardarArchivoActionPerformed
+
+    private void miAbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirArchivoActionPerformed
+        // TODO add your handling code here:
+        if(selectorFicheros.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+           controlador.cargarCuentas();
+       }
+    }//GEN-LAST:event_miAbrirArchivoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,6 +361,9 @@ public class Ventana extends javax.swing.JFrame {
     public float getCantidad(){
         return Float.parseFloat(JOptionPane.showInputDialog(this, "Introduzca cantidad"));
     }
+    public String getArchivo(){
+        return selectorFicheros.getSelectedFile().getAbsolutePath();
+    }
     public void mostrarMensaje(String mensaje){
         JOptionPane.showMessageDialog(this, mensaje);
     }
@@ -359,6 +399,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JMenuItem miSalir;
     private javax.swing.JPanel pCuenta;
     private javax.swing.JPanel pListado;
+    private javax.swing.JFileChooser selectorFicheros;
     private javax.swing.JTable tablaCuentas;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JFormattedTextField tfSaldo;

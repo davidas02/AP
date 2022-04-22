@@ -1,6 +1,10 @@
+com\sauces\modelo\CuentaDaoCsv.class
 com\sauces\vista\Ventana$5.class
+com\sauces\modelo\CuentaDao.class
+com\sauces\vista\Ventana$11.class
 com\sauces\modelo\Cuenta.class
 com\sauces\vista\DialogoCuenta$3$1.class
+com\sauces\modelo\SaldoException.class
 com\sauces\vista\Ventana$8.class
 com\sauces\vista\Ventana$3.class
 com\sauces\vista\DialogoCuenta$1.class
@@ -9,11 +13,14 @@ com\sauces\vista\DialogoCuenta.class
 com\sauces\controlador\Controlador.class
 AppBanco.class
 com\sauces\vista\DialogoCuenta$3.class
+com\sauces\vista\Ventana$10.class
 com\sauces\vista\CuentaTableModel.class
 com\sauces\vista\Ventana$1.class
+com\sauces\modelo\DaoException.class
 com\sauces\vista\Ventana$6.class
 com\sauces\modelo\Movimiento.class
 com\sauces\vista\Ventana$2.class
+com\sauces\vista\Ventana$9.class
 com\sauces\vista\Ventana$7.class
 com\sauces\modelo\AP.class
 com\sauces\modelo\Banco.class
