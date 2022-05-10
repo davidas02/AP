@@ -13,13 +13,16 @@ com\sauces\vista\DialogoCuenta.class
 com\sauces\controlador\Controlador.class
 AppBanco.class
 com\sauces\vista\DialogoCuenta$3.class
+com\sauces\modelo\ConexionBD.class
 com\sauces\vista\Ventana$10.class
 com\sauces\vista\CuentaTableModel.class
 com\sauces\vista\Ventana$1.class
+com\sauces\vista\Ventana$12.class
 com\sauces\modelo\DaoException.class
 com\sauces\vista\Ventana$6.class
 com\sauces\modelo\Movimiento.class
 com\sauces\vista\Ventana$2.class
+com\sauces\modelo\CuentaDaoJdbc.class
 com\sauces\vista\Ventana$9.class
 com\sauces\vista\Ventana$7.class
 com\sauces\modelo\AP.class
