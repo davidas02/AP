@@ -46,10 +46,12 @@ public class Ventana extends javax.swing.JFrame {
         pListado = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaCuentas = new javax.swing.JTable();
+        tfBuscar = new javax.swing.JTextField();
+        bBuscar = new javax.swing.JButton();
         menu = new javax.swing.JMenuBar();
         menuArchivos = new javax.swing.JMenu();
-        miAbrirArchivo = new javax.swing.JMenuItem();
-        miGuardarArchivo = new javax.swing.JMenuItem();
+        miImportarArchivo = new javax.swing.JMenuItem();
+        miExportarArchivo = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miSalir = new javax.swing.JMenuItem();
         menuBanco = new javax.swing.JMenu();
@@ -115,7 +117,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(pCuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lSaldo)
                     .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pListado.setBorder(javax.swing.BorderFactory.createTitledBorder("Listado de cuentas"));
@@ -142,8 +144,15 @@ public class Ventana extends javax.swing.JFrame {
         );
         pListadoLayout.setVerticalGroup(
             pListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
+
+        bBuscar.setText("BUSCAR");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         menuArchivos.setText("Archivo");
         menuArchivos.addActionListener(new java.awt.event.ActionListener() {
@@ -152,21 +161,21 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        miAbrirArchivo.setText("Abrir...");
-        miAbrirArchivo.addActionListener(new java.awt.event.ActionListener() {
+        miImportarArchivo.setText("Importar");
+        miImportarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAbrirArchivoActionPerformed(evt);
+                miImportarArchivoActionPerformed(evt);
             }
         });
-        menuArchivos.add(miAbrirArchivo);
+        menuArchivos.add(miImportarArchivo);
 
-        miGuardarArchivo.setText("Guardar...");
-        miGuardarArchivo.addActionListener(new java.awt.event.ActionListener() {
+        miExportarArchivo.setText("Exportar");
+        miExportarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miGuardarArchivoActionPerformed(evt);
+                miExportarArchivoActionPerformed(evt);
             }
         });
-        menuArchivos.add(miGuardarArchivo);
+        menuArchivos.add(miExportarArchivo);
         menuArchivos.add(jSeparator1);
 
         miSalir.setText("Salir");
@@ -222,13 +231,22 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bBuscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -280,18 +298,23 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuArchivosActionPerformed
 
-    private void miGuardarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miGuardarArchivoActionPerformed
+    private void miExportarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExportarArchivoActionPerformed
        if(selectorFicheros.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
-           controlador.guardarCuentas();
+           //controlador.guardarCuentas();
        }
-    }//GEN-LAST:event_miGuardarArchivoActionPerformed
+    }//GEN-LAST:event_miExportarArchivoActionPerformed
 
-    private void miAbrirArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirArchivoActionPerformed
+    private void miImportarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miImportarArchivoActionPerformed
         // TODO add your handling code here:
         if(selectorFicheros.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
-           controlador.cargarCuentas();
+          // controlador.cargarCuentas();
        }
-    }//GEN-LAST:event_miAbrirArchivoActionPerformed
+    }//GEN-LAST:event_miImportarArchivoActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        // TODO add your handling code here:
+        mostrarCodigo(tfBuscar.getText());
+    }//GEN-LAST:event_bBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +406,7 @@ public class Ventana extends javax.swing.JFrame {
         private DialogoCuenta dialogoCuenta=new DialogoCuenta(this,true);
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bBuscar;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel lCodigo;
@@ -391,16 +415,17 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JMenuBar menu;
     private javax.swing.JMenu menuArchivos;
     private javax.swing.JMenu menuBanco;
-    private javax.swing.JMenuItem miAbrirArchivo;
     private javax.swing.JMenuItem miAbrirCuenta;
     private javax.swing.JMenuItem miCancelarCuenta;
-    private javax.swing.JMenuItem miGuardarArchivo;
+    private javax.swing.JMenuItem miExportarArchivo;
+    private javax.swing.JMenuItem miImportarArchivo;
     private javax.swing.JMenuItem miOperarCuenta;
     private javax.swing.JMenuItem miSalir;
     private javax.swing.JPanel pCuenta;
     private javax.swing.JPanel pListado;
     private javax.swing.JFileChooser selectorFicheros;
     private javax.swing.JTable tablaCuentas;
+    private javax.swing.JTextField tfBuscar;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JFormattedTextField tfSaldo;
     private javax.swing.JTextField tfTitular;

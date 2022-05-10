@@ -12,6 +12,9 @@ import java.util.List;
  * @author daw1
  */
 public interface CuentaDao {
+    public int insertar(Cuenta c) throws DaoException;
+    public Cuenta buscar(String codigo) throws DaoException;
+    public int borrar(String codigo) throws DaoException;
+    public int modificar(Cuenta c) throws DaoException;
     public List<Cuenta> listar() throws DaoException;
-    public int insertar(List<Cuenta> cuentas) throws DaoException;
 }

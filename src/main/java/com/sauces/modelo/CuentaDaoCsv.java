@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author daw1
  */
-public class CuentaDaoCsv implements CuentaDao {
+public class CuentaDaoCsv {
 
     Path path;
 
@@ -34,7 +34,6 @@ public class CuentaDaoCsv implements CuentaDao {
         this.path = Paths.get(path);
     }
 
-    @Override
     public List<Cuenta> listar() throws DaoException {
         List<Cuenta> listado = new ArrayList<>();
         String codigo, titular, linea;
@@ -61,7 +60,6 @@ public class CuentaDaoCsv implements CuentaDao {
         return listado;
     }
 
-    @Override
     public int insertar(List<Cuenta> cuentas) throws DaoException {
         int n=0;
         String linea;

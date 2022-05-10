@@ -19,20 +19,20 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuArchivosActionPerformed"/>
           </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="miAbrirArchivo">
+            <MenuItem class="javax.swing.JMenuItem" name="miImportarArchivo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Abrir..."/>
+                <Property name="text" type="java.lang.String" value="Importar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbrirArchivoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miImportarArchivoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miGuardarArchivo">
+            <MenuItem class="javax.swing.JMenuItem" name="miExportarArchivo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Guardar..."/>
+                <Property name="text" type="java.lang.String" value="Exportar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miGuardarArchivoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miExportarArchivoActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
@@ -113,6 +113,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="pCuenta" max="32767" attributes="0"/>
                   <Component id="pListado" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="tfBuscar" min="-2" pref="244" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="bBuscar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -121,6 +127,11 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tfBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pCuenta" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -179,7 +190,7 @@
                       <Component id="lSaldo" min="-2" max="-2" attributes="0"/>
                       <Component id="tfSaldo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="46" max="32767" attributes="0"/>
+                  <EmptySpace pref="76" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -243,7 +254,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane3" alignment="0" pref="152" max="32767" attributes="0"/>
+              <Component id="jScrollPane3" alignment="0" pref="166" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -291,5 +302,15 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JTextField" name="tfBuscar">
+    </Component>
+    <Component class="javax.swing.JButton" name="bBuscar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="BUSCAR"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBuscarActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

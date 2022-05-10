@@ -7,12 +7,9 @@ package com.sauces.controlador;
 
 import com.sauces.modelo.Banco;
 import com.sauces.modelo.Cuenta;
-import com.sauces.modelo.CuentaDaoCsv;
-import com.sauces.modelo.DaoException;
+import com.sauces.modelo.CuentaDao;
 import com.sauces.modelo.SaldoException;
 import com.sauces.vista.Ventana;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,9 +18,9 @@ import javax.swing.JOptionPane;
  */
 public class Controlador {
     private Ventana vista;
-    private Banco modelo;
+    private CuentaDao modelo;
 
-    public Controlador(Ventana vista, Banco modelo) {
+    public Controlador(Ventana vista, CuentaDao modelo) {
         this.vista = vista;
         this.modelo = modelo;
     }
@@ -31,9 +28,10 @@ public class Controlador {
         String codigo=vista.getCodigo();
         String titular=vista.getTitular();
         Float saldo=vista.getSaldo();
-        if(modelo.abrirCuenta(codigo, titular, saldo)){
+        Cuenta c=new Cuenta(codigo, titular, saldo);
+        if(modelo.insertar(c)>0){
             vista.mostrarMensaje("Cuenta Abierta");
-            vista.mostrarCuentas(modelo.getCuentas());
+            vista.mostrarCuentas(modelo.listar());
         }else{
             vista.mostrarMensaje("No se ha podido abrir la cuenta");
         }
@@ -87,7 +85,7 @@ public class Controlador {
     public void listarCuentas(){
         vista.mostrarCuentas(modelo.getCuentas());
     }
-    public void guardarCuentas(){
+    /*public void guardarCuentas(){
         String archivo= vista.getArchivo();
         try {
             modelo.setCuentaDao(new CuentaDaoCsv(archivo));
@@ -98,6 +96,7 @@ public class Controlador {
         }
         listarCuentas();
     }
+    
     public void cargarCuentas(){
        String archivo= vista.getArchivo();
         try {
@@ -108,7 +107,7 @@ public class Controlador {
             vista.mostrarMensaje(ex.getMessage());
         }
         listarCuentas();
-    }
+    }*/
     public void iniciar(){
         vista.mostrar();
     }

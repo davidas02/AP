@@ -112,12 +112,13 @@ public class Banco {
     public String toString() {
         return nombre;
     }
+    /*
     public int guardarCuentas() throws DaoException {
         int n = 0;
         if (cuentaDao == null) {
             throw new DaoException("No se ha podido encontrar la extension del fichero");
         }
-        n = cuentaDao.insertar(new ArrayList<>(cuentas.values()));
+        n = CuentaDao.insertar(new ArrayList<>(cuentas.values()));
         return n;
     }
 
@@ -139,4 +140,5 @@ public class Banco {
         }
         return n;
     }
+*/
 }
