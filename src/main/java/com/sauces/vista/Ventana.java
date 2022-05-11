@@ -261,7 +261,7 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_miSalirActionPerformed
 
     private void miAbrirCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbrirCuentaActionPerformed
-
+        limpiarCampos();
         if(dialogoCuenta.mostrar()==DialogoCuenta.ACEPTAR){
             mostrarCodigo(this.dialogoCuenta.getCodigo());
             mostrarTitular(this.dialogoCuenta.getTitular());
@@ -300,20 +300,22 @@ public class Ventana extends javax.swing.JFrame {
 
     private void miExportarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExportarArchivoActionPerformed
        if(selectorFicheros.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
-           //controlador.guardarCuentas();
+           controlador.exportarCuentas();
        }
     }//GEN-LAST:event_miExportarArchivoActionPerformed
 
     private void miImportarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miImportarArchivoActionPerformed
         // TODO add your handling code here:
         if(selectorFicheros.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
-          // controlador.cargarCuentas();
+           controlador.importarCuentas();
        }
     }//GEN-LAST:event_miImportarArchivoActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         // TODO add your handling code here:
+        limpiarCampos();
         mostrarCodigo(tfBuscar.getText());
+        controlador.buscarCuenta();
     }//GEN-LAST:event_bBuscarActionPerformed
 
     /**

@@ -59,27 +59,53 @@ public class Controlador {
         try {
             c1 = modelo.buscar((String) JOptionPane.showInputDialog("Introduce cuenta con la que trabajar"));
         } catch (DaoException ex) {
-            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            vista.mostrarMensaje(ex.getMessage());
         }
         float cantidad;
-        String operacion;
+        String operacion = vista.getOperacion();
         if (c1 != null) {
 
             cantidad = vista.getCantidad();
-            try {
-                c1.ingresar(cantidad);
-                modelo.modificar(c1);
-                vista.mostrarSaldo(c1.getSaldo());
-                vista.mostrarCuentas(modelo.listar());
-            } catch (IllegalArgumentException | DaoException ex) {
-                vista.mostrarMensaje(ex.getMessage());
-            }
+            switch (operacion) {
+                case "INGRESAR":
+                    try {
+                            c1.ingresar(cantidad);
+                            modelo.modificar(c1);
+                            vista.mostrarSaldo(c1.getSaldo());
+                            vista.mostrarCuentas(modelo.listar());
+                        } catch (IllegalArgumentException | DaoException ex) {
+                            vista.mostrarMensaje(ex.getMessage());
+                        }
+                    break;
+                case "REINTEGRAR":
+                    try {
+                            c1.reintegrar(cantidad);
+                            modelo.modificar(c1);
+                            vista.mostrarSaldo(c1.getSaldo());
+                            vista.mostrarCuentas(modelo.listar());
+                        } catch (IllegalArgumentException | DaoException ex) {
+                            vista.mostrarMensaje(ex.getMessage());
+                        } catch (SaldoException ex) {
+                            vista.mostrarMensaje(ex.getMessage());
+                        }
+                    break;
 
+            }
         } else {
             vista.mostrarMensaje("La cuenta especificada no existe");
         }
     }
-
+    public void buscarCuenta(){
+        String codigo=vista.getCodigo();
+        Cuenta c=null;
+        try {
+            c=modelo.buscar(codigo);
+        } catch (DaoException ex) {
+            vista.mostrarMensaje(ex.getMessage());
+        }
+        vista.mostrarSaldo(c.getSaldo());
+        vista.mostrarTitular(c.getTitular());
+    }
     public void cancelarCuenta() {
         String codigo = (String) JOptionPane.showInputDialog("Introduce cuenta con la que trabajar");
 
@@ -105,35 +131,7 @@ public class Controlador {
         }
     }
 
-    public void guardarCuentas() {
-        String archivo = vista.getArchivo();
-        Path path = Paths.get(archivo);
-        List<Cuenta> listado = new ArrayList<>();
-        String codigo, titular, linea;
-        float saldo;
-        Cuenta cuenta = null;
-        String[] tokens;
-        try ( BufferedReader entrada = Files.newBufferedReader(path)) {
-            linea = entrada.readLine();
-            while (linea != null) {
-                tokens = linea.split(",");
-                codigo = tokens[0];
-                titular = tokens[1];
-                saldo = Float.parseFloat(tokens[2]);
-                cuenta = new Cuenta(codigo, titular, saldo);
-
-                listado.add(cuenta);
-                linea = entrada.readLine();
-            }
-        } catch (IOException me) {
-            vista.mostrarMensaje(me.getMessage());
-        } catch (Exception ex) {
-            vista.mostrarMensaje(ex.toString());
-        }
-        listarCuentas();
-    }
-
-    public void cargarCuentas() {
+    public void exportarCuentas() {
         List<Cuenta> cuentas = null;
         try {
             cuentas = modelo.listar();
@@ -145,7 +143,7 @@ public class Controlador {
             String archivo = vista.getArchivo();
             Path path = Paths.get(archivo);
             String linea;
-            try ( BufferedWriter salida = Files.newBufferedWriter(path)) {
+            try (BufferedWriter salida = Files.newBufferedWriter(path)) {
                 for (Cuenta c : cuentas) {
                     linea = c.toString();
                     salida.write(linea);
@@ -158,7 +156,41 @@ public class Controlador {
         }
     }
 
+    public void importarCuentas() {
+        String archivo = vista.getArchivo();
+        Path path = Paths.get(archivo);
+        
+        String codigo, titular, linea;
+        float saldo;
+        Cuenta cuenta = null;
+        String[] tokens;
+        try (BufferedReader entrada = Files.newBufferedReader(path)) {
+            linea = entrada.readLine();
+            while (linea != null) {
+                tokens = linea.split(",");
+                codigo = tokens[0];
+                titular = tokens[1];
+                saldo = Float.parseFloat(tokens[2]);
+                cuenta = new Cuenta(codigo, titular, saldo);
+                try{
+                    modelo.insertar(cuenta);
+                }catch(DaoException ex){
+                
+                }
+                linea = entrada.readLine();
+                listarCuentas();
+            }
+        } catch (IOException me) {
+            vista.mostrarMensaje(me.getMessage());
+        } catch (Exception ex) {
+            vista.mostrarMensaje(ex.toString());
+        }
+        listarCuentas();
+        
+        }
+    
     public void iniciar() {
         vista.mostrar();
+        listarCuentas();
     }
 }

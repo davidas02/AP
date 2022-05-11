@@ -28,7 +28,7 @@ public class ConexionBD {
     public Connection getConexion() throws DaoException {
         Connection con = null;
         try {
-            con = DriverManager.getConnection(url, url, password);
+            con = DriverManager.getConnection(url, usuario, password);
         } catch (SQLException sqle) {
             throw new DaoException("Error: " + sqle.getMessage());
         }
